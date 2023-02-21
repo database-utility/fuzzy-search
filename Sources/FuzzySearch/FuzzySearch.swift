@@ -36,7 +36,7 @@ public struct FuzzyTokens {
 
 internal extension String {
     func tokenize() -> [CharOpts] {
-        return characters.map{
+        return map{
             let str = String($0).lowercased()
             guard let data = str.data(using: .ascii, allowLossyConversion: true),
                 let accentFoldedStr = String(data: data, encoding: .ascii) else {
@@ -50,7 +50,7 @@ internal extension String {
     func hasPrefix(_ prefix: CharOpts, atIndex index: Int) -> Int? {
         for pfx in [prefix.ch, prefix.normalized] {
             if (self as NSString).substring(from: index).hasPrefix(pfx) {
-                return pfx.characters.count
+                return pfx.count
             }
         }
         return nil
@@ -122,7 +122,7 @@ extension FuzzySearchable {
             parts.append(currPart)
         }
         
-        if patternIdx == pattern.characters.count {
+        if patternIdx == pattern.count {
             // if all pattern chars were found
             return FuzzySearchResult(weight: totalScore, parts: parts)
         } else {

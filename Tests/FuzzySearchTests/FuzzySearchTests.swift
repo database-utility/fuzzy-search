@@ -117,7 +117,7 @@ class FuzzySearchTests: XCTestCase {
     }
     
     func testSpeedOfFuzzySearchFor1000SpanishWords() {
-        let path = Bundle(for: type(of: self)).path(forResource: "spanish-words", ofType: "json")!
+        let path = Bundle.module.path(forResource: "spanish-words", ofType: "json")!
         let jsonData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
         let spanishWords: Array<String> = try! JSONSerialization.jsonObject(with: jsonData as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! Array<String>
         
@@ -133,7 +133,7 @@ class FuzzySearchTests: XCTestCase {
     }
     
     func testSpeedOfFuzzySearchFor1000SpanishWords_cached() {
-        let path = Bundle(for: type(of: self)).path(forResource: "spanish-words", ofType: "json")!
+        let path = Bundle.module.path(forResource: "spanish-words", ofType: "json")!
         let jsonData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
         let spanishWords: Array<String> = try! JSONSerialization.jsonObject(with: jsonData as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! Array<String>
         let spanishWordsCached = spanishWords.map(CachedFuzzySearchable.init)
